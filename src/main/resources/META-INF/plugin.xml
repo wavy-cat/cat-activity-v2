@@ -1,15 +1,72 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
-<idea-plugin>
-    <id>com.github.wavycat.catactivityv2</id>
-    <name>cat-activity-v2</name>
-    <vendor>wavy-cat</vendor>
+<idea-plugin url="https://github.com/wavy-cat/cat-activity">
+    <id>cat.wavy.catactivity</id>
+    <name>Cat Activity</name>
+    <vendor email="me@wavycat.ru" url="https://wavycat.ru">WavyCat</vendor>
+
+    <description><![CDATA[
+        Plugin for JetBrains IDE to display Rich Presence on your Discord profile using Catppuccin Icons and Theme.
+        <br/>
+        <b>
+            The settings are in <i>Settings > Tools > Cat Activity</i>
+        </b>
+  ]]></description>
 
     <depends>com.intellij.modules.platform</depends>
-
-    <resource-bundle>messages.MyBundle</resource-bundle>
+    <depends>Git4Idea</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.wavycat.catactivityv2.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
-        <postStartupActivity implementation="com.github.wavycat.catactivityv2.startup.MyProjectActivity" />
+        <postStartupActivity implementation="cat.wavy.catactivity.listener.PostStartListener"/>
+
+        <projectConfigurable
+                id="cat.wavy.catactivity.setting.CatConfigurableProject"
+                instance="cat.wavy.catactivity.setting.CatConfigurable"
+                parentId="tools"
+                key="projectTitle"
+                bundle="messages.MyBundle"/>
     </extensions>
+
+    <applicationListeners>
+        <listener class="cat.wavy.catactivity.listener.FileListener"
+                  topic="com.intellij.openapi.fileEditor.FileEditorManagerListener"/>
+
+        <listener class="cat.wavy.catactivity.listener.ProjectListener"
+                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
+    </applicationListeners>
+
+    <projectListeners>
+        <listener class="cat.wavy.catactivity.listener.FileProblemListener"
+                  topic="com.intellij.analysis.problemsView.ProblemsListener"/>
+    </projectListeners>
+
+    <actions>
+        <group id="CatActivity.MainMenu" text="Cat Activity" description="Discord Rich Presence">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+
+            <group id="CatActivity.StatusMenu" text="Cat Activity" popup="true"
+                   description="Change Discord status and reconnect to discord">
+                <action id="CatActivity.SelectOnlyIDE"
+                        class="cat.wavy.catactivity.action.SelectOnlyIDE"
+                        text="Show Only IDE"/>
+
+                <action id="CatActivity.SelectShowProject"
+                        class="cat.wavy.catactivity.action.SelectShowProject"
+                        text="Show Project"/>
+
+                <action id="CatActivity.SelectShowProjectAndFiles"
+                        class="cat.wavy.catactivity.action.SelectShowProjectAndFiles"
+                        text="Show Project and Files"/>
+
+                <action id="CatActivity.SelectDisableActivity"
+                        class="cat.wavy.catactivity.action.SelectDisableActivity"
+                        text="Disable Activity"/>
+
+                <action id="CatActivity.ReloadAction"
+                        class="cat.wavy.catactivity.action.ReloadAction"
+                        text="Reconnect to Discord"/>
+            </group>
+        </group>
+    </actions>
+
+    <resource-bundle>messages.MyBundle</resource-bundle>
 </idea-plugin>

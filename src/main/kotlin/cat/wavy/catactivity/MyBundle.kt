@@ -1,4 +1,4 @@
-package com.github.wavycat.catactivityv2
+package cat.wavy.catactivity
 
 import com.intellij.DynamicBundle
 import org.jetbrains.annotations.NonNls
