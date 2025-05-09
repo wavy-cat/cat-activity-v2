@@ -1,5 +1,10 @@
 # Cat Activity
 
+> [!CAUTION]
+> This repository is an experimental sandbox for migrating Cat Activity to the version 2 plugin build system.
+> 
+> Please refer to the main repository - [wavy-cat/Cat-Activity](https://github.com/wavy-cat/Cat-Activity)
+
 ![Build](https://github.com/wavy-cat/cat-activity-v2/workflows/Build/badge.svg)
 [![Version](https://img.shields.io/jetbrains/plugin/v/24065-cat-activity.svg)](https://plugins.jetbrains.com/plugin/24065-cat-activity)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/24065-cat-activity.svg)](https://plugins.jetbrains.com/plugin/24065-cat-activity)
